@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACCT 2101 — Exam 2 Study Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --surface2: #1c1c26;
+  --surface3: #242432;
+  --border: #2e2e40;
+  --accent: #c8a96e;
+  --accent2: #7c6fcd;
+  --accent3: #4ecdc4;
+  --accent4: #ff6b6b;
+  --accent5: #51cf66;
+  --text: #e8e8f0;
+  --text2: #9898b0;
+  --text3: #5a5a72;
+  --red: #cc3333;
+  --gold: #c8a96e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #0a0a0f 0%, #13131a 50%, #1a1020 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+.logo span { color: var(--text2); font-weight: 400; font-size: 0.9rem; margin-left: 0.5rem; font-family: 'DM Sans', sans-serif; }
+.nav-tabs {
+  display: flex;
+  gap: 0.25rem;
+}
+.nav-tab {
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-tab:hover { background: var(--surface2); color: var(--text); }
+.nav-tab.active { background: var(--surface2); border-color: var(--border); color: var(--accent); }
+
+/* MAIN */
+.main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+/* PAGES */
+.page { display: none; }
+.page.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 3rem 0 2rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent) 0%, #e8d5a8 50%, var(--accent2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+.hero p { color: var(--text2); font-size: 1.05rem; max-width: 580px; margin: 0 auto 2rem; }
+.exam-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.85rem;
+  color: var(--accent4);
+  margin-bottom: 2.5rem;
+}
+.pulse { width: 8px; height: 8px; background: var(--accent4); border-radius: 50%; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+
+/* TOPIC GRID */
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.topic-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.4rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.topic-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-color, var(--accent));
+  opacity: 0.8;
+}
+.topic-card:hover { border-color: var(--card-color, var(--accent)); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+.topic-num { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text3); margin-bottom: 0.5rem; }
+.topic-title { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+.topic-desc { font-size: 0.82rem; color: var(--text2); line-height: 1.5; }
+.topic-badges { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.8rem; }
+.badge {
+  font-size: 0.68rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: var(--surface3);
+  color: var(--text2);
+  font-weight: 500;
+}
+
+/* STUDY VIEW */
+.study-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.back-btn {
+  padding: 0.4rem 0.9rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+.back-btn:hover { color: var(--text); border-color: var(--accent); }
+.study-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+
+/* STUDY TABS */
+.study-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.study-tab {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.study-tab:hover { background: var(--surface2); color: var(--text); }
+.study-tab.active { background: var(--surface3); border-color: var(--accent); color: var(--accent); }
+
+/* SECTION CARD */
+.section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.75rem;
+  margin-bottom: 1rem;
+}
+.section-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.section-card p { color: var(--text2); line-height: 1.7; margin-bottom: 0.75rem; font-size: 0.92rem; }
+.section-card ul { padding-left: 1.2rem; }
+.section-card li { color: var(--text2); line-height: 1.7; font-size: 0.92rem; margin-bottom: 0.25rem; }
+.section-card li strong { color: var(--text); }
+.highlight-box {
+  background: rgba(200,169,110,0.08);
+  border: 1px solid rgba(200,169,110,0.25);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+.highlight-box p { color: var(--text); font-size: 0.88rem; margin: 0; }
+.warning-box {
+  background: rgba(255,107,107,0.08);
+  border: 1px solid rgba(255,107,107,0.25);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+.warning-box p { color: var(--accent4); font-size: 0.88rem; margin: 0; }
+.tip-box {
+  background: rgba(78,205,196,0.08);
+  border: 1px solid rgba(78,205,196,0.25);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+.tip-box p { color: var(--accent3); font-size: 0.88rem; margin: 0; }
+
+/* JOURNAL ENTRY TABLE */
+.je-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+  font-family: 'DM Mono', monospace;
+}
+.je-table th {
+  background: var(--surface3);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  color: var(--text2);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+}
+.je-table td {
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid rgba(46,46,64,0.5);
+  color: var(--text);
+}
+.je-table tr:last-child td { border-bottom: none; }
+.debit-row td:first-child { color: var(--accent3); }
+.credit-row td:first-child { color: var(--accent4); padding-left: 2rem; }
+.credit-row td:nth-child(3) { color: var(--accent4); }
+.debit-row td:nth-child(2) { color: var(--accent3); }
+
+/* FORMULA BOX */
+.formula {
+  background: var(--surface3);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.88rem;
+  color: var(--accent);
+  margin: 0.75rem 0;
+  border-left: 3px solid var(--accent);
+}
+
+/* TABLE */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin: 1rem 0;
+}
+.data-table th {
+  background: var(--surface3);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid rgba(46,46,64,0.5);
+  color: var(--text2);
+}
+.data-table td strong { color: var(--text); }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* VIDEO LINKS */
+.video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+.video-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.2s;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.video-card:hover { border-color: var(--accent4); transform: translateY(-1px); }
+.video-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+.video-info .title { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+.video-info .channel { font-size: 0.75rem; color: var(--text3); }
+
+/* FLASHCARDS */
+.flashcard-container { perspective: 1000px; margin: 1rem auto; max-width: 600px; }
+.flashcard {
+  width: 100%;
+  height: 220px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  cursor: pointer;
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+}
+.flashcard-front {
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.flashcard-back {
+  background: var(--surface2);
+  border: 1px solid var(--accent);
+  transform: rotateY(180deg);
+}
+.card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); margin-bottom: 0.75rem; }
+.card-term { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+.card-def { font-size: 0.88rem; color: var(--text2); line-height: 1.6; }
+.flashcard-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1rem; }
+.fc-btn {
+  padding: 0.5rem 1.25rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  transition: all 0.2s;
+}
+.fc-btn:hover { border-color: var(--accent); color: var(--accent); }
+.fc-counter { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--text3); }
+.fc-hint { text-align: center; font-size: 0.75rem; color: var(--text3); margin-top: 0.5rem; }
+
+/* PRACTICE PROBLEMS */
+.practice-container { }
+.prob-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+.prob-header h3 { font-size: 0.9rem; font-weight: 600; color: var(--text2); }
+.gen-btn {
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(135deg, var(--accent) 0%, #b89050 100%);
+  border: none;
+  border-radius: 8px;
+  color: #0a0a0f;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gen-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(200,169,110,0.3); }
+.problem-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.problem-text { color: var(--text); line-height: 1.7; font-size: 0.92rem; margin-bottom: 1rem; }
+.problem-question { color: var(--accent); font-weight: 600; font-size: 0.92rem; margin-bottom: 1rem; }
+.answer-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s;
+}
+.answer-input:focus { outline: none; border-color: var(--accent); }
+.check-btn {
+  margin-top: 0.75rem;
+  padding: 0.6rem 1.5rem;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.check-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+.solution-box {
+  margin-top: 1rem;
+  background: rgba(81,207,102,0.06);
+  border: 1px solid rgba(81,207,102,0.2);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  display: none;
+}
+.solution-box.show { display: block; animation: fadeIn 0.3s ease; }
+.solution-box h4 { color: var(--accent5); font-size: 0.82rem; font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.solution-box p { color: var(--text2); font-size: 0.88rem; line-height: 1.6; margin-bottom: 0.5rem; }
+.solution-box .sol-je { font-family: 'DM Mono', monospace; font-size: 0.82rem; }
+
+/* MCQ */
+.mcq-options { display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
+.mcq-option {
+  padding: 0.65rem 1rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+  text-align: left;
+}
+.mcq-option:hover { border-color: var(--accent2); color: var(--text); }
+.mcq-option.correct { background: rgba(81,207,102,0.12); border-color: var(--accent5); color: var(--accent5); }
+.mcq-option.wrong { background: rgba(255,107,107,0.1); border-color: var(--accent4); color: var(--accent4); }
+.mcq-option.reveal-correct { background: rgba(81,207,102,0.06); border-color: rgba(81,207,102,0.3); color: var(--accent5); }
+.mcq-feedback { margin-top: 0.75rem; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.85rem; display: none; }
+.mcq-feedback.show { display: block; }
+.mcq-feedback.correct { background: rgba(81,207,102,0.1); color: var(--accent5); border: 1px solid rgba(81,207,102,0.2); }
+.mcq-feedback.wrong { background: rgba(255,107,107,0.08); color: var(--accent4); border: 1px solid rgba(255,107,107,0.2); }
+
+/* ANALOGY */
+.analogy-card {
+  background: linear-gradient(135deg, rgba(124,111,205,0.1) 0%, rgba(200,169,110,0.05) 100%);
+  border: 1px solid rgba(124,111,205,0.3);
+  border-radius: 14px;
+  padding: 1.4rem;
+  margin: 1rem 0;
+}
+.analogy-card .analogy-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent2); margin-bottom: 0.5rem; font-weight: 600; }
+.analogy-card p { color: var(--text); font-size: 0.9rem; line-height: 1.7; }
+
+/* PROGRESS */
+.progress-section { margin-bottom: 2rem; }
+.progress-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
+.progress-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.progress-item:hover { border-color: var(--accent); }
+.progress-item .pi-title { font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+.progress-bar { height: 4px; background: var(--surface3); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent2), var(--accent3)); transition: width 0.5s ease; }
+.progress-pct { font-size: 0.72rem; color: var(--text3); margin-top: 0.35rem; font-family: 'DM Mono', monospace; }
+
+/* SECTION DIVIDER */
+.divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+/* ICON */
+.icon { font-size: 1.1rem; }
+
+/* TWO COL */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } .hero h1 { font-size: 2.2rem; } .nav-tabs { display: none; } }
+
+/* CONCEPT MAP */
+.concept-row { display: flex; gap: 0.5rem; align-items: stretch; flex-wrap: wrap; margin: 0.5rem 0; }
+.concept-box {
+  flex: 1;
+  min-width: 120px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.8rem;
+  color: var(--text2);
+  text-align: center;
+}
+.concept-box strong { display: block; color: var(--text); font-size: 0.82rem; margin-bottom: 0.2rem; }
+.arrow { color: var(--text3); display: flex; align-items: center; font-size: 1rem; }
+
+/* SPACED REP INFO */
+.science-box {
+  background: linear-gradient(135deg, rgba(78,205,196,0.08) 0%, rgba(124,111,205,0.08) 100%);
+  border: 1px solid rgba(78,205,196,0.2);
+  border-radius: 14px;
+  padding: 1.4rem;
+  margin: 1rem 0;
+}
+.science-box h4 { color: var(--accent3); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.science-box p { color: var(--text2); font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.4rem; }
+
+/* STUDY PLAN */
+.plan-day {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.plan-day .day-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+.day-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.day-today { background: rgba(200,169,110,0.15); color: var(--accent); border: 1px solid rgba(200,169,110,0.3); }
+.day-tomorrow { background: rgba(124,111,205,0.15); color: var(--accent2); border: 1px solid rgba(124,111,205,0.3); }
+.day-exam { background: rgba(255,107,107,0.15); color: var(--accent4); border: 1px solid rgba(255,107,107,0.3); }
+.plan-blocks { display: flex; flex-direction: column; gap: 0.5rem; }
+.plan-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface2);
+  border-radius: 8px;
+  font-size: 0.82rem;
+}
+.block-time { font-family: 'DM Mono', monospace; color: var(--text3); min-width: 80px; font-size: 0.75rem; }
+.block-topic { color: var(--text2); }
+.block-topic strong { color: var(--text); }
+
+/* MOBILE */
+.mobile-menu-btn { display: none; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">ACCT 2101 <span>Exam 2 Study Hub</span></div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('home')">🏠 Home</button>
+    <button class="nav-tab" onclick="showPage('topics')">📚 Topics</button>
+    <button class="nav-tab" onclick="showPage('flashcards')">🃏 Flashcards</button>
+    <button class="nav-tab" onclick="showPage('practice')">✏️ Practice</button>
+    <button class="nav-tab" onclick="showPage('plan')">📅 Study Plan</button>
+  </nav>
+</header>
+
+<div class="main">
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <h1>Master Exam 2<br>in 3 Days</h1>
+    <p>Your complete interactive study hub for ACCT 2101 — built from your actual class slides, with infinite practice problems, flashcards, and analogies.</p>
+    <div class="exam-countdown"><div class="pulse"></div><span id="countdown-text">Loading countdown...</span></div>
+  </div>
+
+  <div class="science-box">
+    <h4>🧠 Study Science — How to Use This Tool</h4>
+    <p><strong>Spaced Repetition:</strong> Don't marathon one topic. Rotate through topics, revisiting older material. This exploits the "spacing effect" — one of the most replicated findings in memory research.</p>
+    <p><strong>Active Recall:</strong> Use the Practice & Flashcard modes instead of re-reading. Retrieving info from memory strengthens it 2-3x more than passive review.</p>
+    <p><strong>Interleaving:</strong> Mix topics together in each session. It feels harder but produces dramatically better long-term retention.</p>
+    <p><strong>The Testing Effect:</strong> Take the practice problems before studying — even getting them wrong improves final retention by 20-40%.</p>
+  </div>
+
+  <h2 style="font-family:'Playfair Display',serif;color:var(--text);font-size:1.3rem;margin-bottom:1rem;">Choose a Topic to Study</h2>
+  <div class="topic-grid">
+    <div class="topic-card" style="--card-color:#c8a96e" onclick="openTopic('revenue')">
+      <div class="topic-num">SESSION 09</div>
+      <div class="topic-title">Revenue & Expense Recognition</div>
+      <div class="topic-desc">Percentage-of-completion, deferred revenue, matching principle, inventory discounts</div>
+      <div class="topic-badges"><span class="badge">% Complete</span><span class="badge">Deferred Rev</span><span class="badge">Discounts</span></div>
+    </div>
+    <div class="topic-card" style="--card-color:#7c6fcd" onclick="openTopic('inventory')">
+      <div class="topic-num">SESSIONS 10 & 11</div>
+      <div class="topic-title">Inventory Costing</div>
+      <div class="topic-desc">FIFO, LIFO, Weighted Average, Lower of Cost or NRV, inventory errors</div>
+      <div class="topic-badges"><span class="badge">FIFO</span><span class="badge">LIFO</span><span class="badge">Avg Cost</span><span class="badge">LCNRV</span></div>
+    </div>
+    <div class="topic-card" style="--card-color:#4ecdc4" onclick="openTopic('ar')">
+      <div class="topic-num">SESSIONS 12 & 13</div>
+      <div class="topic-title">Accounts Receivable & Bad Debt</div>
+      <div class="topic-desc">Allowance method, aging of AR, write-offs, recoveries, T-account analysis</div>
+      <div class="topic-badges"><span class="badge">Allowance</span><span class="badge">Aging</span><span class="badge">Write-offs</span></div>
+    </div>
+    <div class="topic-card" style="--card-color:#ff6b6b" onclick="openTopic('longterm')">
+      <div class="topic-num">SESSIONS 14 & 15</div>
+      <div class="topic-title">Long-Term Assets</div>
+      <div class="topic-desc">Depreciation (SL/DDB/SYD/UOP), mid-year, disposals, intangibles, goodwill, natural resources</div>
+      <div class="topic-badges"><span class="badge">SL</span><span class="badge">DDB</span><span class="badge">SYD</span><span class="badge">Goodwill</span></div>
+    </div>
+    <div class="topic-card" style="--card-color:#51cf66" onclick="openTopic('investments')">
+      <div class="topic-num">SESSIONS 16 & 17</div>
+      <div class="topic-title">Intercorporate Investments</div>
+      <div class="topic-desc">Trading/AFS/HTM debt securities, Fair Value & Equity method, Consolidation</div>
+      <div class="topic-badges"><span class="badge">Trading</span><span class="badge">AFS</span><span class="badge">Equity Method</span><span class="badge">Consolidation</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPICS PAGE -->
+<div id="page-topics" class="page">
+  <div id="topic-list">
+    <h2 style="font-family:'Playfair Display',serif;color:var(--text);font-size:1.5rem;margin-bottom:1.5rem;">All Topics</h2>
+    <div class="topic-grid">
+      <div class="topic-card" style="--card-color:#c8a96e" onclick="openTopic('revenue')">
+        <div class="topic-num">SESSION 09</div>
+        <div class="topic-title">Revenue & Expense Recognition</div>
+        <div class="topic-desc">Percentage-of-completion, deferred revenue, matching principle, inventory discounts</div>
+      </div>
+      <div class="topic-card" style="--card-color:#7c6fcd" onclick="openTopic('inventory')">
+        <div class="topic-num">SESSIONS 10 & 11</div>
+        <div class="topic-title">Inventory Costing</div>
+        <div class="topic-desc">FIFO, LIFO, Weighted Average, LCNRV, inventory errors</div>
+      </div>
+      <div class="topic-card" style="--card-color:#4ecdc4" onclick="openTopic('ar')">
+        <div class="topic-num">SESSIONS 12 & 13</div>
+        <div class="topic-title">Accounts Receivable & Bad Debt</div>
+        <div class="topic-desc">Allowance method, aging of AR, write-offs, recoveries</div>
+      </div>
+      <div class="topic-card" style="--card-color:#ff6b6b" onclick="openTopic('longterm')">
+        <div class="topic-num">SESSIONS 14 & 15</div>
+        <div class="topic-title">Long-Term Assets</div>
+        <div class="topic-desc">Depreciation, disposals, intangibles, goodwill, natural resources</div>
+      </div>
+      <div class="topic-card" style="--card-color:#51cf66" onclick="openTopic('investments')">
+        <div class="topic-num">SESSIONS 16 & 17</div>
+        <div class="topic-title">Intercorporate Investments</div>
+        <div class="topic-desc">Debt securities, equity securities, consolidation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC DETAIL VIEWS -->
+  <div id="topic-detail" style="display:none">
+    <div class="study-header">
+      <button class="back-btn" onclick="closeTopic()">← Back</button>
+      <div class="study-title" id="topic-detail-title"></div>
+    </div>
+    <div class="study-tabs" id="study-tabs">
+      <button class="study-tab active" onclick="switchStudyTab('explain',this)">📖 Explanation</button>
+      <button class="study-tab" onclick="switchStudyTab('analogy',this)">💡 Analogy</button>
+      <button class="study-tab" onclick="switchStudyTab('entries',this)">📝 Journal Entries</button>
+      <button class="study-tab" onclick="switchStudyTab('videos',this)">▶️ Videos</button>
+    </div>
+    <div id="topic-content"></div>
+  </div>
+</div>
+
+<!-- FLASHCARDS PAGE -->
+<div id="page-flashcards" class="page">
+  <h2 style="font-family:'Playfair Display',serif;color:var(--text);font-size:1.5rem;margin-bottom:0.5rem;">Flashcards</h2>
+  <p style="color:var(--text2);font-size:0.88rem;margin-bottom:1.5rem;">Click card to flip. Use arrows to navigate. Built on active recall — the #1 evidence-based study method.</p>
+
+  <div style="margin-bottom:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+    <select id="fc-filter" onchange="filterCards()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.4rem 0.75rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.82rem;">
+      <option value="all">All Topics</option>
+      <option value="revenue">Revenue Recognition</option>
+      <option value="inventory">Inventory</option>
+      <option value="ar">AR & Bad Debt</option>
+      <option value="longterm">Long-Term Assets</option>
+      <option value="investments">Investments</option>
+    </select>
+    <button class="fc-btn" onclick="shuffleCards()">🔀 Shuffle</button>
+  </div>
+
+  <div class="flashcard-container">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="flashcard-front">
+        <div class="card-label">Term</div>
+        <div class="card-term" id="card-term">Loading...</div>
+      </div>
+      <div class="flashcard-back">
+        <div class="card-label">Definition</div>
+        <div class="card-def" id="card-def">Loading...</div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-hint">Click card to reveal answer</div>
+  <div class="flashcard-nav">
+    <button class="fc-btn" onclick="prevCard()">← Prev</button>
+    <span class="fc-counter" id="fc-counter">1 / 40</span>
+    <button class="fc-btn" onclick="nextCard()">Next →</button>
+  </div>
+</div>
+
+<!-- PRACTICE PAGE -->
+<div id="page-practice" class="page">
+  <h2 style="font-family:'Playfair Display',serif;color:var(--text);font-size:1.5rem;margin-bottom:0.5rem;">Practice Problems</h2>
+  <p style="color:var(--text2);font-size:0.88rem;margin-bottom:1.5rem;">Infinite regenerative problems. Each click generates new numbers. Always attempt before revealing the answer.</p>
+
+  <div style="margin-bottom:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center">
+    <select id="prob-topic" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.4rem 0.75rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.82rem;">
+      <option value="all">All Topics</option>
+      <option value="pct">% of Completion</option>
+      <option value="inventory">Inventory (FIFO/LIFO)</option>
+      <option value="ar">AR & Bad Debt</option>
+      <option value="depreciation">Depreciation</option>
+      <option value="disposal">Asset Disposal</option>
+      <option value="investments">Investments</option>
+      <option value="goodwill">Goodwill</option>
+    </select>
+    <button class="gen-btn" onclick="generateProblem()">⚡ Generate New Problem</button>
+  </div>
+
+  <div id="practice-area">
+    <div class="problem-box" style="text-align:center;padding:2rem;color:var(--text3)">
+      Click "Generate New Problem" to get started
+    </div>
+  </div>
+</div>
+
+<!-- STUDY PLAN PAGE -->
+<div id="page-plan" class="page">
+  <h2 style="font-family:'Playfair Display',serif;color:var(--text);font-size:1.5rem;margin-bottom:0.5rem;">Your 3-Day Study Plan</h2>
+  <p style="color:var(--text2);font-size:0.88rem;margin-bottom:1.5rem;">Exam Monday at 6:30 PM. Every topic is covered. Every hour is planned.</p>
+
+  <div class="plan-day">
+    <div class="day-header">
+      <span class="day-badge day-today">Tonight (Sat)</span>
+      <span style="color:var(--text2);font-size:0.85rem;">~2.5 hours</span>
+    </div>
+    <div class="plan-blocks">
+      <div class="plan-block"><span class="block-time">0:00–0:45</span><span class="block-topic"><strong>AR & Bad Debt:</strong> Allowance method, 4 transactions, T-accounts</span></div>
+      <div class="plan-block"><span class="block-time">0:45–1:30</span><span class="block-topic"><strong>AR & Bad Debt:</strong> Aging method, practice problems</span></div>
+      <div class="plan-block"><span class="block-time">1:30–2:00</span><span class="block-topic"><strong>Flashcards:</strong> AR topic only — active recall drill</span></div>
+      <div class="plan-block"><span class="block-time">2:00–2:30</span><span class="block-topic"><strong>Practice exam:</strong> Problems 7 & 8 (AR workout problem)</span></div>
+    </div>
+  </div>
+
+  <div class="plan-day">
+    <div class="day-header">
+      <span class="day-badge day-tomorrow">Sunday (8 hours)</span>
+    </div>
+    <div class="plan-blocks">
+      <div class="plan-block"><span class="block-time">Block 1 (2h)</span><span class="block-topic"><strong>Revenue Recognition:</strong> % of completion, deferred rev, discounts</span></div>
+      <div class="plan-block"><span class="block-time">Block 2 (1h)</span><span class="block-topic"><strong>Inventory:</strong> FIFO/LIFO/WA periodic vs perpetual</span></div>
+      <div class="plan-block"><span class="block-time">Block 3 (1h)</span><span class="block-topic"><strong>Inventory:</strong> LCNRV, inventory errors, practice problems</span></div>
+      <div class="plan-block"><span class="block-time">Block 4 (2h)</span><span class="block-topic"><strong>Long-Term Assets:</strong> All 4 depreciation methods, mid-year, disposals</span></div>
+      <div class="plan-block"><span class="block-time">Block 5 (1h)</span><span class="block-topic"><strong>Long-Term Assets:</strong> Intangibles, goodwill, natural resources</span></div>
+      <div class="plan-block"><span class="block-time">Block 6 (1h)</span><span class="block-topic"><strong>Investments:</strong> All debt & equity security types</span></div>
+    </div>
+  </div>
+
+  <div class="plan-day">
+    <div class="day-header">
+      <span class="day-badge day-exam">Monday (Exam at 6:30 PM)</span>
+    </div>
+    <div class="plan-blocks">
+      <div class="plan-block"><span class="block-time">Block 1 (2h)</span><span class="block-topic"><strong>Investments:</strong> Equity method, consolidation, full review</span></div>
+      <div class="plan-block"><span class="block-time">Block 2 (1.5h)</span><span class="block-topic"><strong>Full Practice Exam:</strong> Timed, simulate real conditions</span></div>
+      <div class="plan-block"><span class="block-time">Block 3 (1h)</span><span class="block-topic"><strong>Weak spots only:</strong> Review any topics you got wrong</span></div>
+      <div class="plan-block"><span class="block-time">30 min before</span><span class="block-topic"><strong>Flashcard quick-fire:</strong> All key formulas and journal entries</span></div>
+    </div>
+  </div>
+
+  <div class="science-box" style="margin-top:1.5rem">
+    <h4>🔬 Exam Day Tips (Science-Backed)</h4>
+    <p>• <strong>Retrieval practice over re-reading:</strong> If you have 1 hour left, do practice problems — not re-reading slides.</p>
+    <p>• <strong>Brain dump first:</strong> When you get the exam, spend 60 seconds writing formulas from memory on scratch paper before question 1.</p>
+    <p>• <strong>Skip and return:</strong> Don't spend >3 min on any one question. Mark it and come back — other questions often trigger memory.</p>
+    <p>• <strong>Sleep is non-negotiable:</strong> Sleep consolidates memory. A well-rested brain outperforms a tired cramming session every time.</p>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<script>
+// ============ NAVIGATION ============
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ============ COUNTDOWN ============
+function updateCountdown() {
+  const exam = new Date('2026-03-30T18:30:00');
+  const now = new Date();
+  const diff = exam - now;
+  if (diff <= 0) { document.getElementById('countdown-text').textContent = 'Exam time! Good luck!'; return; }
+  const h = Math.floor(diff/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  document.getElementById('countdown-text').textContent = `Exam in ${h}h ${m}m — Monday 6:30 PM`;
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+// ============ TOPIC CONTENT DATA ============
+const topicData = {
+  revenue: {
+    title: 'Revenue & Expense Recognition',
+    explain: `
+      <div class="section-card">
+        <h3>🎯 The Big Idea</h3>
+        <p>Revenue recognition answers: <strong>WHEN do we record revenue?</strong> The answer is NOT when cash is received — it's when it is <strong>Earned AND Realized</strong>.</p>
+        <ul>
+          <li><strong>Earned:</strong> Delivery has occurred or service has been performed</li>
+          <li><strong>Realized/Realizable:</strong> Customer has paid OR will pay (collectability is reasonably assured)</li>
+        </ul>
+        <div class="highlight-box"><p>💡 Both conditions are usually met at the "point of sale" — but NOT for long-term construction contracts or subscriptions.</p></div>
+      </div>
+
+      <div class="section-card">
+        <h3>🏗️ Percentage-of-Completion Method</h3>
+        <p>Used for long-term contracts (like construction) when both conditions are met BEFORE delivery.</p>
+        <div class="formula">Step 1: % Complete = Costs Incurred to Date ÷ (Costs to Date + Estimated Costs to Complete)</div>
+        <div class="formula">Step 2: Revenue This Period = (Total Contract Price × % Complete) − Revenue Already Recognized</div>
+        <div class="formula">Step 3: Gross Profit = Revenue Recognized − Costs Incurred This Period</div>
+        <div class="warning-box"><p>⚠️ "Costs to Date" in the denominator = cumulative costs, not just this year's costs. The denominator = Total Estimated Cost.</p></div>
+      </div>
+
+      <div class="section-card">
+        <h3>💳 Inventory Purchase Discounts (2/10, n/30)</h3>
+        <p>"2/10, n/30" means: <strong>2% discount if paid within 10 days; full amount due in 30 days.</strong></p>
+        <p>Under the perpetual system, discounts reduce the Inventory account (not a separate "discount" account):</p>
+        <table class="je-table">
+          <tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Accounts Payable</td><td>8,400</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Inventory (discount)</td><td></td><td>168</td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Cash</td><td></td><td>8,232</td></tr>
+        </table>
+        <div class="tip-box"><p>✓ If you DON'T pay within the discount window, you just debit AP and credit Cash for the full amount. No inventory adjustment.</p></div>
+      </div>
+
+      <div class="section-card">
+        <h3>🔄 Deferred/Unearned Revenue</h3>
+        <p>When cash is received BEFORE the service is performed (e.g., season tickets, subscriptions, gift cards), it's a LIABILITY first.</p>
+        <table class="je-table">
+          <tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Cash</td><td>810</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Unearned Revenue</td><td></td><td>810</td></tr>
+        </table>
+        <p style="margin-top:0.75rem">Then, as service is performed, revenue is recognized:</p>
+        <table class="je-table">
+          <tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Unearned Revenue</td><td>50</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Revenue</td><td></td><td>50</td></tr>
+        </table>
+      </div>
+    `,
+    analogy: `
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Percentage-of-Completion</div>
+        <p>Think of building a house for a client. The contract is for $500,000. If you're 30% done, you've <em>earned</em> 30% of the revenue — even though you haven't handed over the keys yet. You wouldn't wait until the house is fully built to recognize any income if the job took 3 years. The Percentage-of-Completion method tracks your "earned slice" of the pie as construction progresses.</p>
+      </div>
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Deferred Revenue</div>
+        <p>You buy a gym membership on January 1 for the full year and pay $600 upfront. From the gym's perspective, that $600 is NOT revenue yet — it's a promise they still have to fulfill. Every month, as they let you work out, they "earn" $50 and move it from liability (Unearned Revenue) to revenue. If the gym closes in February, they owe you money back — hence it's a liability.</p>
+      </div>
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Purchase Discounts</div>
+        <p>"2/10, n/30" is like a credit card offer: pay your restaurant bill within 10 days and get 2% off. Pay after that? Full price. The key insight is that the inventory is never really "worth" $9,600 to you — what you actually paid for it is $9,432 after the discount. So we record what we truly paid, not the sticker price.</p>
+      </div>
+    `,
+    entries: `
+      <div class="section-card">
+        <h3>📝 All Key Journal Entries</h3>
+        <p style="margin-bottom:1rem"><strong>1. Long-term contract — recording revenue (% of completion)</strong></p>
+        <table class="je-table">
+          <tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Construction in Progress</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Revenue from Long-Term Contract</td><td></td><td>XXX</td></tr>
+        </table>
+        <p style="margin-top:1rem;margin-bottom:1rem"><strong>2. Purchase with discount — paying WITHIN discount window</strong></p>
+        <table class="je-table">
+          <tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Accounts Payable</td><td>Full Amt</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Inventory</td><td></td><td>Discount Amt</td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Cash</td><td></td><td>Net Amt</td></tr>
+        </table>
+        <p style="margin-top:1rem;margin-bottom:1rem"><strong>3. Sales return (perpetual — seller's books)</strong></p>
+        <table class="je-table">
+          <tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Sales Returns & Allowances</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Accounts Receivable</td><td></td><td>XXX</td></tr>
+          <tr class="debit-row"><td>Inventory</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Cost of Goods Sold</td><td></td><td>XXX</td></tr>
+        </table>
+      </div>
+    `,
+    videos: `
+      <div class="section-card">
+        <h3>▶️ Recommended Videos</h3>
+        <div class="video-grid">
+          <a class="video-card" href="https://www.youtube.com/results?search_query=percentage+of+completion+method+accounting" target="_blank">
+            <div class="video-icon">▶️</div>
+            <div class="video-info"><div class="title">Percentage-of-Completion Method</div><div class="channel">Search YouTube → great Khan Academy & Prof. tutorials</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=purchase+discounts+accounting+perpetual+2/10+n/30" target="_blank">
+            <div class="video-icon">▶️</div>
+            <div class="video-info"><div class="title">Purchase Discounts (2/10, n/30)</div><div class="channel">AccountingCoach or Professor Farhat</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=deferred+unearned+revenue+accounting" target="_blank">
+            <div class="video-icon">▶️</div>
+            <div class="video-info"><div class="title">Deferred/Unearned Revenue</div><div class="channel">CPA exam prep channels</div></div>
+          </a>
+        </div>
+      </div>
+    `
+  },
+
+  inventory: {
+    title: 'Inventory Costing (FIFO, LIFO, Avg Cost)',
+    explain: `
+      <div class="section-card">
+        <h3>🎯 The Big Idea: Cost Flow Assumptions</h3>
+        <p>When you sell inventory, you need to decide which "cost" to assign to what was sold. GAAP doesn't require this to match physical flow — it's an accounting choice that affects taxes and reported income.</p>
+        <table class="data-table">
+          <tr><th>Method</th><th>COGS</th><th>Ending Inventory</th><th>Best for...</th></tr>
+          <tr><td><strong>FIFO</strong></td><td>Oldest costs</td><td>Newest costs</td><td>Inventory value on B/S</td></tr>
+          <tr><td><strong>LIFO</strong></td><td>Newest costs</td><td>Oldest costs</td><td>Lower taxes (rising prices)</td></tr>
+          <tr><td><strong>Avg Cost</strong></td><td>Blended cost/unit</td><td>Blended cost/unit</td><td>Simplicity</td></tr>
+        </table>
+        <div class="highlight-box"><p>🔑 <strong>Key Rule with Rising Prices:</strong> LIFO → Highest COGS → Lowest Net Income → Lowest Taxes. FIFO → Lowest COGS → Highest Net Income → Highest Taxes.</p></div>
+      </div>
+
+      <div class="section-card">
+        <h3>📊 Periodic vs. Perpetual — Key Differences</h3>
+        <p><strong>Periodic:</strong> Only updates inventory at END of period. COGS is a "plug" (GAFS − Ending Inventory).</p>
+        <p><strong>Perpetual:</strong> Updates inventory with EVERY sale. COGS is tracked in real-time.</p>
+        <div class="warning-box"><p>⚠️ FIFO gives the SAME result under both systems. LIFO and Weighted Average give DIFFERENT results because timing matters for LIFO perpetual.</p></div>
+        <div class="formula">Goods Available for Sale (GAFS) = Beginning Inventory + Purchases</div>
+        <div class="formula">COGS + Ending Inventory = GAFS (always true!)</div>
+      </div>
+
+      <div class="section-card">
+        <h3>📉 Lower of Cost or Net Realizable Value (LCNRV)</h3>
+        <p>Inventory must be reported at the LOWER of its cost (from FIFO/LIFO/etc.) or its NRV (estimated selling price minus selling costs). Applied item-by-item.</p>
+        <p>If NRV < Cost → write inventory DOWN to NRV:</p>
+        <table class="je-table">
+          <tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Loss on NRV Test</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Inventory</td><td></td><td>XXX</td></tr>
+        </table>
+      </div>
+
+      <div class="section-card">
+        <h3>❌ Inventory Errors</h3>
+        <p>An ending inventory error in Year 1 flips in Year 2 — errors are self-correcting over 2 years.</p>
+        <table class="data-table">
+          <tr><th>If Ending Inv is...</th><th>Effect on COGS</th><th>Effect on Net Income</th></tr>
+          <tr><td><strong>Overstated</strong></td><td>Understated</td><td>Overstated</td></tr>
+          <tr><td><strong>Understated</strong></td><td>Overstated</td><td>Understated</td></tr>
+        </table>
+        <div class="tip-box"><p>✓ Memory trick: COGS = GAFS − Ending Inventory. If EI goes UP, COGS goes DOWN. They move opposite directions.</p></div>
+      </div>
+    `,
+    analogy: `
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — FIFO</div>
+        <p>FIFO is like a grocery store. When new milk comes in, the store stacks it BEHIND the old milk, so customers grab the old stuff first. The first milk IN is the first milk OUT. The oldest costs hit your income statement first, and the newest (most current) costs stay on the balance sheet.</p>
+      </div>
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — LIFO</div>
+        <p>LIFO is like a stack of plates in a cafeteria — you always grab from the TOP (newest). The newest costs hit your income statement first. This makes your COGS more "current" and realistic during inflation, which is why it lowers taxes — but it can leave very old costs sitting in ending inventory on your balance sheet, making it less useful for investors.</p>
+      </div>
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — LCNRV</div>
+        <p>Imagine you bought 100 umbrellas for $20 each in winter, expecting to sell them in spring for $35. But it turns out summer is coming early and umbrellas are on clearance at $14. You can't pretend your inventory is worth $20 anymore — you write it down to what you'll actually get ($14), because accounting must be conservative and show realistic values.</p>
+      </div>
+    `,
+    entries: `
+      <div class="section-card">
+        <h3>📝 Key Journal Entries — Inventory (Perpetual)</h3>
+        <p style="margin-bottom:0.75rem"><strong>1. Purchase inventory</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Inventory</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Cash / Accounts Payable</td><td></td><td>XXX</td></tr></table>
+        <p style="margin-top:1rem;margin-bottom:0.75rem"><strong>2. Record a sale (TWO entries needed)</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Cash / AR</td><td>Selling Price</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Sales Revenue</td><td></td><td>Selling Price</td></tr>
+          <tr class="debit-row"><td>Cost of Goods Sold</td><td>Cost</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Inventory</td><td></td><td>Cost</td></tr></table>
+        <p style="margin-top:1rem;margin-bottom:0.75rem"><strong>3. LCNRV write-down</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Loss on NRV Test</td><td>Difference</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Inventory</td><td></td><td>Difference</td></tr></table>
+      </div>
+    `,
+    videos: `
+      <div class="section-card">
+        <h3>▶️ Recommended Videos</h3>
+        <div class="video-grid">
+          <a class="video-card" href="https://www.youtube.com/results?search_query=FIFO+LIFO+average+cost+inventory+accounting" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">FIFO LIFO Average Cost Explained</div><div class="channel">Professor Farhat / AccountingCoach</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=LIFO+perpetual+vs+periodic+inventory" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">LIFO Perpetual vs Periodic</div><div class="channel">Search for step-by-step tutorials</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=lower+of+cost+or+net+realizable+value+LCNRV" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">Lower of Cost or NRV</div><div class="channel">CPA/accounting study channels</div></div>
+          </a>
+        </div>
+      </div>
+    `
+  },
+
+  ar: {
+    title: 'Accounts Receivable & Bad Debt',
+    explain: `
+      <div class="section-card">
+        <h3>🎯 The Big Idea</h3>
+        <p>When you sell on credit, some customers won't pay. GAAP requires you to <strong>estimate</strong> bad debts upfront (matching principle) — you can't wait to find out who specifically won't pay. This is the <strong>Allowance Method</strong>.</p>
+        <div class="highlight-box"><p>🔑 Net Realizable Value (NRV) = Accounts Receivable − Allowance for Doubtful Accounts. This is what shows on the Balance Sheet.</p></div>
+      </div>
+
+      <div class="section-card">
+        <h3>📋 The 4 Core Transactions</h3>
+        <p style="margin-bottom:0.75rem"><strong>1. Credit sale</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Accounts Receivable</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Sales Revenue</td><td></td><td>XXX</td></tr></table>
+        <p style="margin-top:1rem;margin-bottom:0.75rem"><strong>2. Estimate bad debt (year-end adjusting entry)</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Bad Debt Expense</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Allowance for Doubtful Accounts</td><td></td><td>XXX</td></tr></table>
+        <p style="margin-top:1rem;margin-bottom:0.75rem"><strong>3. Write-off (customer confirmed won't pay)</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Allowance for Doubtful Accounts</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Accounts Receivable</td><td></td><td>XXX</td></tr></table>
+        <div class="warning-box"><p>⚠️ A write-off does NOT affect NRV or Net Income! Both AR and Allowance decrease by the same amount.</p></div>
+        <p style="margin-top:1rem;margin-bottom:0.75rem"><strong>4. Recovery (2 entries)</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Accounts Receivable</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Allowance for Doubtful Accounts</td><td></td><td>XXX</td></tr>
+          <tr class="debit-row"><td>Cash</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Accounts Receivable</td><td></td><td>XXX</td></tr></table>
+      </div>
+
+      <div class="section-card">
+        <h3>📊 Aging of AR Method (The Required Method)</h3>
+        <p>Step 1: The aging schedule gives you the TARGET ending balance of the Allowance account</p>
+        <p>Step 2: Plug the difference as Bad Debt Expense</p>
+        <div class="formula">Bad Debt Expense = Target Allowance Balance − Current Allowance Balance (before adj.)</div>
+        <div class="tip-box"><p>✓ If the Allowance already has a DEBIT balance (from excess write-offs), you ADD that to the target to get Bad Debt Expense.</p></div>
+      </div>
+
+      <div class="section-card">
+        <h3>🧮 T-Account Analysis Strategy</h3>
+        <p>Draw both T-accounts, fill in knowns, solve for unknowns using the basic equation:</p>
+        <div class="formula">AR: BB + Sales − Collections − Write-offs + Recoveries = EB</div>
+        <div class="formula">Allowance: BB − Write-offs + Recoveries + Bad Debt Exp. = EB</div>
+      </div>
+    `,
+    analogy: `
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — The Allowance Method</div>
+        <p>Think of it like a restaurant that knows from experience that about 2% of dine-and-dash customers never pay. They don't know which specific tables will skip — but they set aside a "reserve" each period for it. That reserve is the Allowance. When a specific customer is confirmed as not paying (write-off), the reserve absorbs it — no new income statement hit, because we already estimated it.</p>
+      </div>
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Why Write-offs Don't Hit Income</div>
+        <p>Imagine you've already told your accountant "I think $5,000 of this money might not come in" (that was Bad Debt Expense). Now when a customer officially defaults on $1,000, you don't say "I lost $1,000" again — you already predicted it! You just move that $1,000 from the "estimated bad" bucket (Allowance) and remove it from AR. No surprise, no new expense.</p>
+      </div>
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Aging of AR</div>
+        <p>The older a bill is, the less likely it'll be paid — like a library book that's been overdue for 2 years vs. 2 days. The aging schedule just applies higher "uncollectible %" to older buckets. A bill 1 day past due might be 1% uncollectible; one over 90 days might be 90% uncollectible. You're essentially saying: "The older the debt, the less it's really worth."</p>
+      </div>
+    `,
+    entries: `
+      <div class="section-card">
+        <h3>📝 Complete Journal Entry Reference</h3>
+        <p style="color:var(--text2);font-size:0.85rem;margin-bottom:1rem">All entries under the Allowance Method (GAAP required):</p>
+        <table class="data-table">
+          <tr><th>Transaction</th><th>Debit</th><th>Credit</th></tr>
+          <tr><td><strong>Credit Sale</strong></td><td>Accounts Receivable</td><td>Sales Revenue</td></tr>
+          <tr><td><strong>Cash Collection</strong></td><td>Cash</td><td>Accounts Receivable</td></tr>
+          <tr><td><strong>Bad Debt Estimate</strong></td><td>Bad Debt Expense</td><td>Allowance for DA</td></tr>
+          <tr><td><strong>Write-Off</strong></td><td>Allowance for DA</td><td>Accounts Receivable</td></tr>
+          <tr><td><strong>Recovery Step 1</strong></td><td>Accounts Receivable</td><td>Allowance for DA</td></tr>
+          <tr><td><strong>Recovery Step 2</strong></td><td>Cash</td><td>Accounts Receivable</td></tr>
+        </table>
+      </div>
+    `,
+    videos: `
+      <div class="section-card">
+        <h3>▶️ Recommended Videos</h3>
+        <div class="video-grid">
+          <a class="video-card" href="https://www.youtube.com/results?search_query=allowance+method+bad+debt+expense+accounting" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">Allowance Method for Bad Debt</div><div class="channel">AccountingCoach, Professor Farhat</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=aging+of+accounts+receivable+method" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">Aging of Accounts Receivable</div><div class="channel">Step-by-step tutorials</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=accounts+receivable+write+off+recovery+journal+entry" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">Write-offs and Recoveries</div><div class="channel">CPA review channels</div></div>
+          </a>
+        </div>
+      </div>
+    `
+  },
+
+  longterm: {
+    title: 'Long-Term Assets',
+    explain: `
+      <div class="section-card">
+        <h3>🎯 Depreciation — 4 Methods</h3>
+        <p>Depreciation = allocating the cost of an asset over its useful life. <strong>It does NOT affect cash flow.</strong></p>
+        <table class="data-table">
+          <tr><th>Method</th><th>Formula</th><th>Pattern</th></tr>
+          <tr><td><strong>Straight Line (SL)</strong></td><td>(Cost − SV) ÷ Years</td><td>Equal each year</td></tr>
+          <tr><td><strong>Units of Production</strong></td><td>(Cost − SV) ÷ Total Units × Units This Year</td><td>Varies with use</td></tr>
+          <tr><td><strong>Sum-of-Years Digits (SYD)</strong></td><td>(Cost − SV) × (Years Left ÷ SYD)</td><td>Accelerated (front-loaded)</td></tr>
+          <tr><td><strong>Double Declining Balance (DDB)</strong></td><td>Book Value × (2 ÷ Years)</td><td>Accelerated (front-loaded)</td></tr>
+        </table>
+        <div class="warning-box"><p>⚠️ DDB: Apply the rate to Book Value (NOT Cost − SV). NEVER depreciate below salvage value — "plug" the last year. SYD: SYD = n(n+1)/2. E.g. 5-year life: 1+2+3+4+5 = 15.</p></div>
+      </div>
+
+      <div class="section-card">
+        <h3>📅 Mid-Year Acquisitions</h3>
+        <p>If an asset is acquired partway through the year, prorate depreciation by the fraction of the year the asset was used.</p>
+        <div class="formula">SL mid-year: (Cost − SV) ÷ Years × (Months Used ÷ 12)</div>
+        <div class="formula">DDB mid-year: Cost × DDB Rate × (Months Used ÷ 12) for Year 1 ONLY. Then proceed normally (BV × rate) for all future years.</div>
+      </div>
+
+      <div class="section-card">
+        <h3>🔄 Change in Estimates</h3>
+        <p>If useful life or salvage value changes — apply <strong>prospectively</strong> (going forward, not retroactively).</p>
+        <div class="formula">Revised Depreciation = (Book Value − New Salvage Value) ÷ Remaining Years</div>
+      </div>
+
+      <div class="section-card">
+        <h3>🗑️ Asset Disposals</h3>
+        <p>When you sell an asset mid-year: (1) Update depreciation to date of sale first, then (2) record the disposal.</p>
+        <div class="formula">Gain/Loss = Cash Received − Book Value at Date of Sale</div>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Cash</td><td>Sale Price</td><td></td></tr>
+          <tr class="debit-row"><td>Accumulated Depreciation</td><td>Acc. Dep.</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;PP&E</td><td></td><td>Original Cost</td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Gain on Sale (if gain)</td><td></td><td>Gain</td></tr>
+          <tr class="debit-row"><td>Loss on Sale (if loss)</td><td>Loss</td><td></td></tr></table>
+      </div>
+
+      <div class="section-card">
+        <h3>💡 Intangibles & Goodwill</h3>
+        <p><strong>Intangibles with FINITE life:</strong> Amortize straight-line over useful life.</p>
+        <p><strong>Intangibles with INDEFINITE life:</strong> Do NOT amortize — test for impairment annually.</p>
+        <p><strong>Goodwill:</strong> = Purchase Price − Fair Market Value of Net Assets Acquired. Does NOT amortize — only impairment tested.</p>
+        <div class="formula">Goodwill = Cost − (FV of Assets − FV of Liabilities)</div>
+        <p><strong>Natural Resources:</strong> Use Units of Production for depletion. Similar to depreciation but called "Depletion Expense."</p>
+      </div>
+    `,
+    analogy: `
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Straight Line vs. DDB</div>
+        <p>SL depreciation is like aging — you get a tiny bit older every year at the same rate. DDB is like a new car — the moment you drive it off the lot, it loses a huge chunk of value. Then the decline slows down. DDB front-loads the expense because assets often lose more value in early years (think computers — a 5-year-old laptop is nearly worthless even if it still works).</p>
+      </div>
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Goodwill</div>
+        <p>Imagine paying $1 million to acquire a coffee shop whose assets (equipment, inventory, etc.) are worth $700K and whose debts are $200K — so the "book" value of what you're getting is $500K. You paid $500K MORE than that. That extra $500K is goodwill — you paid for the brand reputation, loyal customers, trained staff, and location. It's the premium for intangible advantages you can't put on a balance sheet separately.</p>
+      </div>
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Asset Impairment</div>
+        <p>You own a store location that you paid $2M for. The neighborhood deteriorates, and now the store's expected future cash flows are only worth $1.2M. You can't keep pretending that store is worth $2M on your books — that would be misleading. You write it down to $1.2M and record an $800K impairment loss. Accounting must reflect economic reality.</p>
+      </div>
+    `,
+    entries: `
+      <div class="section-card">
+        <h3>📝 All Key Journal Entries — Long-Term Assets</h3>
+        <p style="margin-bottom:0.75rem"><strong>Depreciation (any method)</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Depreciation Expense</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Accumulated Depreciation</td><td></td><td>XXX</td></tr></table>
+        <p style="margin-top:1rem;margin-bottom:0.75rem"><strong>Asset Disposal — Gain</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Cash</td><td>Proceeds</td><td></td></tr>
+          <tr class="debit-row"><td>Accumulated Depreciation</td><td>AccumDep</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;PP&E</td><td></td><td>Cost</td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Gain on Sale</td><td></td><td>Gain</td></tr></table>
+        <p style="margin-top:1rem;margin-bottom:0.75rem"><strong>Intangible Asset Amortization</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Amortization Expense</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Patent / Intangible Asset</td><td></td><td>XXX</td></tr></table>
+        <p style="margin-top:1rem;margin-bottom:0.75rem"><strong>Goodwill Impairment</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Impairment Loss</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Goodwill</td><td></td><td>XXX</td></tr></table>
+      </div>
+    `,
+    videos: `
+      <div class="section-card">
+        <h3>▶️ Recommended Videos</h3>
+        <div class="video-grid">
+          <a class="video-card" href="https://www.youtube.com/results?search_query=straight+line+DDB+SYD+depreciation+methods+accounting" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">All 4 Depreciation Methods Compared</div><div class="channel">Professor Farhat / AccountingCoach</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=double+declining+balance+depreciation+mid+year" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">DDB Mid-Year Acquisitions</div><div class="channel">CPA review tutorials</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=goodwill+calculation+accounting+acquisition" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">Goodwill Calculation</div><div class="channel">Business acquisitions explained</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=gain+loss+on+sale+of+assets+journal+entry" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">Gain/Loss on Asset Disposal</div><div class="channel">Step-by-step journal entries</div></div>
+          </a>
+        </div>
+      </div>
+    `
+  },
+
+  investments: {
+    title: 'Intercorporate Investments',
+    explain: `
+      <div class="section-card">
+        <h3>🎯 The Big Picture Map</h3>
+        <table class="data-table">
+          <tr><th>Type</th><th>Method</th><th>Unrealized G/L Goes To...</th></tr>
+          <tr><td><strong>Debt — Trading</strong></td><td>Fair Value</td><td>Income Statement</td></tr>
+          <tr><td><strong>Debt — AFS</strong></td><td>Fair Value</td><td>Other Comprehensive Income (Equity)</td></tr>
+          <tr><td><strong>Debt — HTM</strong></td><td>Amortized Cost</td><td>Not recognized</td></tr>
+          <tr><td><strong>Equity < 20%</strong></td><td>Fair Value</td><td>Income Statement</td></tr>
+          <tr><td><strong>Equity 20–50%</strong></td><td>Equity Method</td><td>N/A (no FV adjustment)</td></tr>
+          <tr><td><strong>Equity > 50%</strong></td><td>Consolidation</td><td>N/A</td></tr>
+        </table>
+        <div class="warning-box"><p>⚠️ AFS and Trading both use Fair Value, but AFS unrealized G/L bypasses the income statement and goes directly to equity (Other Comprehensive Income). This is a favorite exam trap!</p></div>
+      </div>
+
+      <div class="section-card">
+        <h3>📈 Equity Method (20–50% ownership)</h3>
+        <p>The investor records a proportional share of the investee's earnings and losses.</p>
+        <ul>
+          <li><strong>Purchase:</strong> DR Investment, CR Cash</li>
+          <li><strong>Investee earns income:</strong> DR Investment, CR Income from Sub (% × Net Income)</li>
+          <li><strong>Investee pays dividends:</strong> DR Cash, CR Investment (dividends reduce the investment — NOT income)</li>
+          <li><strong>Fair value changes:</strong> NO ENTRY (this is the big difference from Fair Value method)</li>
+        </ul>
+        <div class="formula">Ending Investment Balance = Cost + % × Earnings − % × Losses − % × Dividends</div>
+      </div>
+
+      <div class="section-card">
+        <h3>🏢 Consolidation (> 50% ownership)</h3>
+        <p>The parent and subsidiary present financial statements "as if" they are ONE company.</p>
+        <ul>
+          <li>The Investment account on the parent's books is eliminated</li>
+          <li>The subsidiary's equity accounts are eliminated</li>
+          <li>All assets and liabilities are combined</li>
+          <li>Intercompany transactions (like loans) are eliminated</li>
+        </ul>
+        <div class="highlight-box"><p>🔑 In consolidated statements: only the PARENT's equity accounts remain. The subsidiary's equity disappears and is replaced by actual assets/liabilities.</p></div>
+      </div>
+    `,
+    analogy: `
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Trading vs. AFS</div>
+        <p>Trading securities are like day-trading stocks — you're actively trying to profit from short-term swings, so every gain or loss goes straight to your income statement. AFS securities are more like a long-term savings portfolio — you're not actively trading them, so unrealized fluctuations are "parked" in equity (OCI) without affecting reported income. They're still marked to market — you just don't want short-term noise hitting earnings.</p>
+      </div>
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Equity Method</div>
+        <p>Think of it like owning 30% of a pizza restaurant. When the restaurant makes $100K profit, your 30% share ($30K) increases the value of your investment — even before any cash comes to you. When the restaurant pays out $40K in dividends, your $12K share decreases your investment balance (cash came to you, reducing what's "still in" the business). This mirrors how economic reality works for significant investors.</p>
+      </div>
+      <div class="analogy-card">
+        <div class="analogy-label">💡 Analogy — Consolidation</div>
+        <p>Imagine a parent company (P) buying a subsidiary (S). On their individual books, P shows "Investment in S: $500K" and S shows stockholders' equity of $500K. When consolidated, we can't show both — that would be double-counting. So we eliminate both sides and just show S's actual assets and liabilities directly on the combined balance sheet. It's like merging two households — you don't count the "I owe you" note between family members as both an asset and liability.</p>
+      </div>
+    `,
+    entries: `
+      <div class="section-card">
+        <h3>📝 Investment Journal Entries Reference</h3>
+        <p style="margin-bottom:0.75rem"><strong>Fair Value Method (Noninfluential, < 20%)</strong></p>
+        <table class="data-table">
+          <tr><th>Transaction</th><th>Debit</th><th>Credit</th></tr>
+          <tr><td>Purchase</td><td>Investment in X</td><td>Cash</td></tr>
+          <tr><td>Receive dividend</td><td>Cash</td><td>Dividend Income</td></tr>
+          <tr><td>FV increases</td><td>Investment in X</td><td>Unrealized Gain (I/S)</td></tr>
+          <tr><td>FV decreases</td><td>Unrealized Loss (I/S)</td><td>Investment in X</td></tr>
+        </table>
+        <p style="margin-top:1rem;margin-bottom:0.75rem"><strong>Equity Method (Influential, 20–50%)</strong></p>
+        <table class="data-table">
+          <tr><th>Transaction</th><th>Debit</th><th>Credit</th></tr>
+          <tr><td>Purchase</td><td>Investment in X</td><td>Cash</td></tr>
+          <tr><td>Investee earns income</td><td>Investment in X</td><td>Income from X</td></tr>
+          <tr><td>Investee pays dividend</td><td>Cash</td><td>Investment in X</td></tr>
+          <tr><td>FV changes</td><td colspan="2">NO ENTRY</td></tr>
+        </table>
+        <p style="margin-top:1rem;margin-bottom:0.75rem"><strong>AFS Securities — Unrealized Gain</strong></p>
+        <table class="je-table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+          <tr class="debit-row"><td>Investment in AFS Securities</td><td>XXX</td><td></td></tr>
+          <tr class="credit-row"><td>&nbsp;&nbsp;Unrealized Increase on AFS (OCI/Equity)</td><td></td><td>XXX</td></tr></table>
+      </div>
+    `,
+    videos: `
+      <div class="section-card">
+        <h3>▶️ Recommended Videos</h3>
+        <div class="video-grid">
+          <a class="video-card" href="https://www.youtube.com/results?search_query=trading+AFS+held+to+maturity+securities+accounting" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">Trading vs AFS vs HTM Securities</div><div class="channel">Professor Farhat / AccountingCoach</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=equity+method+investment+accounting+journal+entry" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">Equity Method Investments</div><div class="channel">Step-by-step tutorials</div></div>
+          </a>
+          <a class="video-card" href="https://www.youtube.com/results?search_query=consolidated+financial+statements+elimination+entries" target="_blank">
+            <div class="video-icon">▶️</div><div class="video-info"><div class="title">Consolidation & Eliminating Entries</div><div class="channel">CPA review channels</div></div>
+          </a>
+        </div>
+      </div>
+    `
+  }
+};
+
+// ============ TOPIC NAVIGATION ============
+let currentTopicTab = 'explain';
+function openTopic(id) {
+  document.getElementById('topic-list').style.display = 'none';
+  document.getElementById('topic-detail').style.display = 'block';
+  const data = topicData[id];
+  document.getElementById('topic-detail-title').textContent = data.title;
+  currentTopicTab = 'explain';
+  document.querySelectorAll('.study-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  document.getElementById('topic-content').innerHTML = data.explain;
+  // Make sure topics page is active
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-topics').classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab')[1].classList.add('active');
+  window._currentTopic = id;
+}
+function closeTopic() {
+  document.getElementById('topic-list').style.display = 'block';
+  document.getElementById('topic-detail').style.display = 'none';
+}
+function switchStudyTab(tab, el) {
+  currentTopicTab = tab;
+  document.querySelectorAll('.study-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const data = topicData[window._currentTopic];
+  document.getElementById('topic-content').innerHTML = data[tab];
+}
+
+// ============ FLASHCARDS ============
+const allCards = [
+  {topic:'revenue', term:'Percentage-of-Completion', def:'Method for recognizing revenue on long-term contracts. Revenue recognized = (Costs to Date ÷ Total Estimated Costs) × Contract Price − Previously Recognized.'},
+  {topic:'revenue', term:'Completed-Contract Method', def:'Revenue recognized only upon project completion. Used when reliable estimates cannot be made.'},
+  {topic:'revenue', term:'2/10, n/30', def:'Credit terms: 2% discount if paid within 10 days; full amount due within 30 days. Discount reduces Inventory (perpetual).'},
+  {topic:'revenue', term:'Unearned Revenue', def:'Cash received BEFORE service is performed. It\'s a LIABILITY. Converted to revenue as service is delivered.'},
+  {topic:'revenue', term:'Matching Principle', def:'Expenses should be recognized in the same period as the revenues they helped generate.'},
+  {topic:'inventory', term:'FIFO (First-In, First-Out)', def:'Oldest costs go to COGS. Newest costs stay in Ending Inventory. Always same result under periodic vs. perpetual.'},
+  {topic:'inventory', term:'LIFO (Last-In, First-Out)', def:'Newest costs go to COGS. Oldest costs stay in Ending Inventory. Different results under periodic vs. perpetual.'},
+  {topic:'inventory', term:'Weighted Average Cost', def:'Total cost ÷ Total units = cost/unit. Applied to all units sold and remaining. Different under periodic vs. perpetual.'},
+  {topic:'inventory', term:'LCNRV', def:'Lower of Cost or Net Realizable Value. Inventory reported at the lower of its cost or NRV (estimated selling price − costs to sell).'},
+  {topic:'inventory', term:'Inventory Error Effect', def:'EI overstated → COGS understated → NI overstated. EI understated → COGS overstated → NI understated. Self-corrects in 2 years.'},
+  {topic:'inventory', term:'Goods Available for Sale', def:'Beginning Inventory + Purchases. Always = COGS + Ending Inventory.'},
+  {topic:'ar', term:'Allowance for Doubtful Accounts', def:'Contra-asset account (credit balance) that represents the estimated portion of AR that will not be collected. Subtracted from AR to get NRV.'},
+  {topic:'ar', term:'Bad Debt Expense', def:'Income statement expense for estimated uncollectible accounts. Recorded via adjusting entry using: DR Bad Debt Exp / CR Allowance.'},
+  {topic:'ar', term:'Write-Off Entry', def:'DR Allowance / CR Accounts Receivable. Does NOT affect NRV or Net Income — both sides reduce equally.'},
+  {topic:'ar', term:'Recovery (2 entries)', def:'1) Reverse write-off: DR AR / CR Allowance. 2) Record cash: DR Cash / CR AR. Net effect: Allowance increases, Cash increases.'},
+  {topic:'ar', term:'Aging of AR Method', def:'Estimates the TARGET ending balance of the Allowance account by multiplying AR by age-based uncollectible %. Bad Debt Exp = Target EB − Current Allowance balance.'},
+  {topic:'ar', term:'Net Realizable Value (AR)', def:'Accounts Receivable − Allowance for Doubtful Accounts. This is the amount expected to actually be collected. Shown on the balance sheet.'},
+  {topic:'longterm', term:'Straight-Line Depreciation', def:'(Cost − Salvage Value) ÷ Useful Life Years. Equal expense each year. Most common method for financial reporting.'},
+  {topic:'longterm', term:'Double Declining Balance', def:'Book Value × (2 ÷ Years). Never go below salvage value — plug last year. Applied to BV (not depreciable cost). Accelerated method.'},
+  {topic:'longterm', term:'Sum-of-Years Digits (SYD)', def:'(Cost − SV) × (Years Remaining ÷ SYD). SYD = n(n+1)/2. Accelerated front-loaded method.'},
+  {topic:'longterm', term:'Units of Production', def:'(Cost − SV) ÷ Total Estimated Units × Units This Period. Expense varies directly with use/output.'},
+  {topic:'longterm', term:'Book Value (Net Book Value)', def:'Cost − Accumulated Depreciation. Also called "carrying value." Used to determine gain/loss on disposal.'},
+  {topic:'longterm', term:'Gain/Loss on Disposal', def:'Cash Received − Book Value at Date of Sale. Gain if proceeds > BV; Loss if proceeds < BV.'},
+  {topic:'longterm', term:'Goodwill', def:'Purchase Price − Fair Market Value of Net Assets Acquired (FV Assets − FV Liabilities). Not amortized — only impairment tested annually.'},
+  {topic:'longterm', term:'Impairment', def:'When an asset\'s book value exceeds its recoverable (market) value. Write down to market value: DR Impairment Loss / CR Asset.'},
+  {topic:'longterm', term:'Change in Depreciation Estimate', def:'Applied PROSPECTIVELY (forward only). New rate = (Book Value − New Salvage Value) ÷ Remaining Life. No retroactive adjustment.'},
+  {topic:'investments', term:'Trading Securities', def:'Bought to sell in short term. Marked to fair value. Unrealized gains/losses go to INCOME STATEMENT → Retained Earnings.'},
+  {topic:'investments', term:'Available-for-Sale (AFS)', def:'Not for immediate sale, not held to maturity. Marked to fair value. Unrealized gains/losses go to OTHER COMPREHENSIVE INCOME (Equity) — NOT income statement.'},
+  {topic:'investments', term:'Held-to-Maturity (HTM)', def:'Debt securities company intends to hold until maturity. Carried at AMORTIZED COST. No unrealized G/L recognized.'},
+  {topic:'investments', term:'Equity Method', def:'Used when ownership is 20–50% (significant influence). Record % of earnings as income, % of dividends reduce investment. No FV adjustments.'},
+  {topic:'investments', term:'Consolidation', def:'Used when ownership > 50% (control). Parent and subsidiary present combined financial statements "as if" one company. Intercompany items eliminated.'},
+  {topic:'investments', term:'Other Comprehensive Income (OCI)', def:'Gains/losses that bypass the income statement and go directly to equity. AFS unrealized gains/losses are the main example in this course.'},
+  {topic:'investments', term:'Significant Influence', def:'Presumed at 20–50% ownership. Allows investor to participate in financial/operating policy decisions. Triggers equity method.'},
+  {topic:'investments', term:'Parent vs. Subsidiary', def:'Parent = controlling company (>50% ownership). Subsidiary = controlled company. Subsidiary is a separate legal entity — limits parent\'s liability.'},
+];
+
+let filteredCards = [...allCards];
+let cardIndex = 0;
+
+function filterCards() {
+  const val = document.getElementById('fc-filter').value;
+  filteredCards = val === 'all' ? [...allCards] : allCards.filter(c => c.topic === val);
+  cardIndex = 0;
+  showCard();
+}
+function shuffleCards() {
+  filteredCards.sort(() => Math.random() - 0.5);
+  cardIndex = 0;
+  document.getElementById('flashcard').classList.remove('flipped');
+  showCard();
+}
+function showCard() {
+  const c = filteredCards[cardIndex];
+  document.getElementById('card-term').textContent = c.term;
+  document.getElementById('card-def').textContent = c.def;
+  document.getElementById('fc-counter').textContent = `${cardIndex+1} / ${filteredCards.length}`;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { cardIndex = (cardIndex+1) % filteredCards.length; showCard(); }
+function prevCard() { cardIndex = (cardIndex - 1 + filteredCards.length) % filteredCards.length; showCard(); }
+showCard();
+
+// ============ PRACTICE PROBLEMS ============
+function rand(min, max) { return Math.floor(Math.random()*(max-min+1))+min; }
+function fmt(n) { return n.toLocaleString(); }
+
+const problemGenerators = {
+  pct: () => {
+    const contract = rand(5,20)*100000;
+    const c1 = rand(10,30)*10000;
+    const r1 = rand(10,30)*10000;
+    const totalEst1 = c1 + r1;
+    const pct1 = (c1/totalEst1*100).toFixed(1);
+    const rev1 = Math.round(contract * c1/totalEst1);
+    const c2 = c1 + rand(15,40)*10000;
+    const r2 = rand(5,20)*10000;
+    const totalEst2 = c2 + r2;
+    const pct2 = (c2/totalEst2*100).toFixed(1);
+    const rev2 = Math.round(contract * c2/totalEst2) - rev1;
+    return {
+      text: `Hardhat Construction signed a contract for $${fmt(contract)} on Jan 1. Data for Year 1 and Year 2:\n\nYear 1: Costs incurred to date = $${fmt(c1)}; Estimated costs to complete = $${fmt(r1)}\nYear 2: Costs incurred to date = $${fmt(c2)}; Estimated costs to complete = $${fmt(r2)}\n\nUsing the Percentage-of-Completion method:`,
+      question: 'How much revenue is recognized in Year 1 and Year 2?',
+      solution: `Year 1:\nStep 1: % Complete = $${fmt(c1)} ÷ ($${fmt(c1)} + $${fmt(r1)}) = ${pct1}%\nStep 2: Revenue = $${fmt(contract)} × ${pct1}% = $${fmt(rev1)}\n\nYear 2:\nStep 1: % Complete = $${fmt(c2)} ÷ ($${fmt(c2)} + $${fmt(r2)}) = ${pct2}%\nStep 2: Cumulative Revenue = $${fmt(contract)} × ${pct2}% = $${fmt(Math.round(contract * c2/totalEst2))}\nStep 3: Year 2 Revenue = $${fmt(Math.round(contract * c2/totalEst2))} − $${fmt(rev1)} = $${fmt(rev2)}`
+    };
+  },
+  inventory: () => {
+    const p1u = rand(50,150), p1c = rand(8,15);
+    const p2u = rand(100,300), p2c = p1c + rand(1,4);
+    const p3u = rand(100,400), p3c = p2c + rand(1,4);
+    const totalU = p1u + p2u + p3u;
+    const sellU = rand(Math.floor(totalU*0.4), Math.floor(totalU*0.7));
+    const endU = totalU - sellU;
+    const totalCost = p1u*p1c + p2u*p2c + p3u*p3c;
+    // FIFO COGS
+    let fifoRemain = sellU, fifoCogs = 0;
+    const layers = [[p1u,p1c],[p2u,p2c],[p3u,p3c]];
+    for (const [u,c] of layers) { const take = Math.min(u, fifoRemain); fifoCogs += take*c; fifoRemain -= take; if (!fifoRemain) break; }
+    const fifoEI = totalCost - fifoCogs;
+    // LIFO COGS
+    let lifoRemain = sellU, lifoCogs = 0;
+    for (const [u,c] of [...layers].reverse()) { const take = Math.min(u, lifoRemain); lifoCogs += take*c; lifoRemain -= take; if (!lifoRemain) break; }
+    const lifoEI = totalCost - lifoCogs;
+    // Avg Cost
+    const avgCost = totalCost/totalU;
+    const avgCogs = Math.round(sellU * avgCost);
+    const avgEI = totalCost - avgCogs;
+    const sellPrice = rand(15,30);
+    const fifoGP = sellU*sellPrice - fifoCogs;
+    return {
+      text: `Purchase 1: ${p1u} units @ $${p1c}\nPurchase 2: ${p2u} units @ $${p2c}\nPurchase 3: ${p3u} units @ $${p3c}\n\nTotal available: ${totalU} units | Sold: ${sellU} units @ $${sellPrice} | Remaining: ${endU} units`,
+      question: 'Calculate (a) COGS and (b) Ending Inventory under FIFO, LIFO, and Weighted Average (Periodic).',
+      solution: `TOTAL COST: $${fmt(totalCost)} (${totalU} units)\n\nFIFO:\n  COGS = $${fmt(fifoCogs)} | Ending Inventory = $${fmt(fifoEI)}\n  Gross Profit = $${fmt(fifoGP)}\n\nLIFO:\n  COGS = $${fmt(lifoCogs)} | Ending Inventory = $${fmt(lifoEI)}\n\nWeighted Average:\n  Avg cost/unit = $${fmt(totalCost)} ÷ ${totalU} = $${avgCost.toFixed(2)}\n  COGS = ${sellU} × $${avgCost.toFixed(2)} = $${fmt(avgCogs)}\n  Ending Inventory = $${fmt(avgEI)}`
+    };
+  },
+  ar: () => {
+    const bbAR = rand(100,500)*1000;
+    const bbAllow = rand(5,30)*1000;
+    const sales = rand(200,800)*1000;
+    const collections = rand(150,600)*1000;
+    const writeoffs = rand(10,50)*1000;
+    const ebAR = bbAR + sales - collections - writeoffs;
+    const pct = rand(1,4);
+    const targetAllow = Math.round(ebAR * pct/100);
+    const bde = targetAllow - (bbAllow - writeoffs);
+    return {
+      text: `Beginning AR: $${fmt(bbAR)}\nBeginning Allowance (credit): $${fmt(bbAllow)}\nCredit sales during year: $${fmt(sales)}\nCollections: $${fmt(collections)}\nWrite-offs: $${fmt(writeoffs)}\n\nYear-end aging shows ${pct}% of ending AR is estimated uncollectible.`,
+      question: '(a) What is ending gross AR? (b) What is the target Allowance balance? (c) What is Bad Debt Expense? (d) What is Net AR?',
+      solution: `(a) Ending Gross AR:\n   BB $${fmt(bbAR)} + Sales $${fmt(sales)} − Collections $${fmt(collections)} − Write-offs $${fmt(writeoffs)} = $${fmt(ebAR)}\n\n(b) Target Allowance (Aging EB):\n   ${pct}% × $${fmt(ebAR)} = $${fmt(targetAllow)}\n\n(c) Bad Debt Expense:\n   Current Allowance = $${fmt(bbAllow)} − $${fmt(writeoffs)} write-offs = $${fmt(bbAllow-writeoffs)}\n   BDE = $${fmt(targetAllow)} − $${fmt(bbAllow-writeoffs)} = $${fmt(bde)}\n\n(d) Net AR = $${fmt(ebAR)} − $${fmt(targetAllow)} = $${fmt(ebAR-targetAllow)}`
+    };
+  },
+  depreciation: () => {
+    const cost = rand(50,200)*1000;
+    const sv = rand(0,2)*5000;
+    const life = rand(4,10);
+    const depval = cost - sv;
+    const sl = Math.round(depval/life);
+    const ddbRate = 2/life;
+    let ddbY1 = Math.round(cost*ddbRate);
+    let ddbY2 = Math.round((cost-ddbY1)*ddbRate);
+    const syd = life*(life+1)/2;
+    const sydY1 = Math.round(depval * life/syd);
+    const sydY2 = Math.round(depval * (life-1)/syd);
+    return {
+      text: `An asset is purchased on January 1.\nCost: $${fmt(cost)}\nSalvage Value: $${fmt(sv)}\nUseful Life: ${life} years`,
+      question: 'Calculate depreciation expense for Year 1 and Year 2 using (a) Straight-Line, (b) Double Declining Balance, and (c) Sum-of-Years Digits.',
+      solution: `(a) STRAIGHT LINE:\n   ($${fmt(cost)} − $${fmt(sv)}) ÷ ${life} years = $${fmt(sl)} per year\n   Year 1 = $${fmt(sl)} | Year 2 = $${fmt(sl)}\n\n(b) DOUBLE DECLINING BALANCE:\n   SL Rate = 100%÷${life} = ${(100/life).toFixed(1)}% | DDB Rate = ${(ddbRate*100).toFixed(1)}%\n   Year 1: $${fmt(cost)} × ${(ddbRate*100).toFixed(1)}% = $${fmt(ddbY1)}\n   Year 2: ($${fmt(cost)} − $${fmt(ddbY1)}) × ${(ddbRate*100).toFixed(1)}% = $${fmt(ddbY2)}\n\n(c) SUM OF YEARS DIGITS:\n   SYD = ${life}(${life}+1)/2 = ${syd}\n   Year 1: $${fmt(depval)} × ${life}/${syd} = $${fmt(sydY1)}\n   Year 2: $${fmt(depval)} × ${life-1}/${syd} = $${fmt(sydY2)}`
+    };
+  },
+  disposal: () => {
+    const cost = rand(50,200)*1000;
+    const sv = rand(0,1)*5000;
+    const life = rand(5,10);
+    const yearsOwned = rand(2, life-1);
+    const sl = (cost - sv)/life;
+    const accDep = Math.round(sl * yearsOwned);
+    const bv = cost - accDep;
+    const proceeds = rand(Math.floor(bv*0.6), Math.floor(bv*1.4));
+    const gainLoss = proceeds - bv;
+    const isGain = gainLoss >= 0;
+    return {
+      text: `A machine was purchased for $${fmt(cost)} with a ${life}-year life and $${fmt(sv)} salvage value. Straight-line depreciation has been recorded for ${yearsOwned} full years. The machine is then sold for $${fmt(proceeds)}.`,
+      question: 'Calculate the gain or loss on sale and prepare the journal entry.',
+      solution: `Annual Depreciation = ($${fmt(cost)} − $${fmt(sv)}) ÷ ${life} = $${fmt(Math.round(sl))}/year\nAccum. Depreciation after ${yearsOwned} years = $${fmt(accDep)}\nBook Value = $${fmt(cost)} − $${fmt(accDep)} = $${fmt(bv)}\n\n${isGain ? 'GAIN' : 'LOSS'} = $${fmt(proceeds)} − $${fmt(bv)} = $${isGain?'+':''}${fmt(gainLoss)}\n\nJournal Entry:\n  DR Cash           $${fmt(proceeds)}\n  DR Accum. Depr.   $${fmt(accDep)}\n    CR PP&E              $${fmt(cost)}\n    ${isGain?'CR Gain on Sale':'DR Loss on Sale'}    $${fmt(Math.abs(gainLoss))}`
+    };
+  },
+  investments: () => {
+    const pct = rand(2,4)*10;
+    const purchase = rand(50,200)*10000;
+    const netIncome = rand(50,200)*1000;
+    const dividends = rand(10,60)*1000;
+    const share = pct/100;
+    const earnInc = Math.round(netIncome * share);
+    const divDec = Math.round(dividends * share);
+    const endBal = purchase + earnInc - divDec;
+    const isEquity = pct >= 20 && pct <= 50;
+    return {
+      text: `Company A acquires ${pct}% of Company B's outstanding shares for $${fmt(purchase)} cash.\nCompany B reports net income of $${fmt(netIncome)} for the year.\nCompany B pays total dividends of $${fmt(dividends)}.`,
+      question: `Using the ${isEquity ? 'Equity Method' : 'Fair Value Method'}, (a) record all transactions and (b) show the ending investment balance.`,
+      solution: `Method: ${isEquity ? 'EQUITY METHOD (20–50% = significant influence)' : 'FAIR VALUE METHOD (< 20% = noninfluential)'}\n\n1. Purchase:\n   DR Investment in B   $${fmt(purchase)}\n     CR Cash               $${fmt(purchase)}\n\n2. B reports $${fmt(netIncome)} net income:\n${isEquity ? `   DR Investment in B   $${fmt(earnInc)} (${pct}% × $${fmt(netIncome)})\n     CR Income from B      $${fmt(earnInc)}` : '   NO ENTRY (fair value method does not record investee earnings)'}\n\n3. B pays $${fmt(dividends)} dividends:\n${isEquity ? `   DR Cash               $${fmt(divDec)} (${pct}% × $${fmt(dividends)})\n     CR Investment in B    $${fmt(divDec)}` : `   DR Cash               $${fmt(divDec)}\n     CR Dividend Income     $${fmt(divDec)}`}\n\nEnding Investment Balance: $${fmt(endBal)}`
+    };
+  },
+  goodwill: () => {
+    const price = rand(100,500)*10000;
+    const fa = rand(150,800)*10000;
+    const fl = rand(50,300)*10000;
+    const fvNet = fa - fl;
+    const gw = price - fvNet;
+    const hasPatent = Math.random() > 0.5;
+    const patentVal = hasPatent ? rand(10,80)*10000 : 0;
+    const gw2 = price - (fvNet + patentVal);
+    return {
+      text: `Company P acquires 100% of Company S for $${fmt(price)} cash.\nFair value of S's assets: $${fmt(fa)}\nFair value of S's liabilities: $${fmt(fl)}${hasPatent ? `\nS also has an internally-developed patent with a fair value of $${fmt(patentVal)}` : ''}`,
+      question: 'Calculate Goodwill from this acquisition.',
+      solution: `FV of Net Assets = $${fmt(fa)} − $${fmt(fl)} = $${fmt(fvNet)}${hasPatent ? `\n+ Separately identifiable patent = $${fmt(patentVal)}\nTotal identifiable FV = $${fmt(fvNet + patentVal)}` : ''}\n\nGoodwill = Purchase Price − FV of Net Assets\nGoodwill = $${fmt(price)} − $${fmt(fvNet + patentVal)} = $${fmt(gw2)}\n\nJournal Entry on Acquisition:\n  DR Various Assets   $${fmt(fa + patentVal)}\n  DR Goodwill         $${fmt(gw2)}\n    CR Various Liabilities  $${fmt(fl)}\n    CR Cash                 $${fmt(price)}`
+    };
+  }
+};
+
+const allTopicTypes = ['pct','inventory','ar','depreciation','disposal','investments','goodwill'];
+let currentProblemSolved = false;
+
+function generateProblem() {
+  const topicSel = document.getElementById('prob-topic').value;
+  let type;
+  if (topicSel === 'all') { type = allTopicTypes[rand(0, allTopicTypes.length-1)]; }
+  else { type = topicSel; }
+  if (!problemGenerators[type]) { type = 'ar'; }
+  const prob = problemGenerators[type]();
+  currentProblemSolved = false;
+
+  document.getElementById('practice-area').innerHTML = `
+    <div class="problem-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+        <span style="font-size:0.72rem;font-family:'DM Mono',monospace;color:var(--text3);text-transform:uppercase">${type.toUpperCase()}</span>
+        <span style="font-size:0.72rem;color:var(--text3)">Attempt before revealing</span>
+      </div>
+      <div class="problem-text" style="white-space:pre-line">${prob.text}</div>
+      <div class="problem-question">❓ ${prob.question}</div>
+      <textarea class="answer-input" id="answer-input" placeholder="Work out your answer here..."></textarea>
+      <div style="display:flex;gap:0.75rem;margin-top:0.75rem">
+        <button class="check-btn" onclick="revealSolution()">👁 Reveal Solution</button>
+        <button class="gen-btn" onclick="generateProblem()">⚡ New Problem</button>
+      </div>
+      <div class="solution-box" id="solution-box">
+        <h4>✅ Solution</h4>
+        <p style="white-space:pre-line;font-family:'DM Mono',monospace;font-size:0.82rem">${prob.solution}</p>
+      </div>
+    </div>
+  `;
+}
+
+function revealSolution() {
+  document.getElementById('solution-box').classList.add('show');
+}
+
+// Init
+showCard();
+</script>
+</body>
+</html>
